@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ma.ensao.hotel.controller.DashboardController"
+            fitToWidth="true" styleClass="page">
+
+    <VBox spacing="18.0">
+        <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+
+        <HBox alignment="CENTER_LEFT" spacing="12.0">
+            <VBox spacing="2.0">
+                <Label text="Tableau de bord" styleClass="dash-title"/>
+                <Label text="Vue d'ensemble de l'activité de l'hôtel" styleClass="dash-subtitle"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <ProgressIndicator fx:id="piLoading" prefWidth="28" prefHeight="28"/>
+            <Button text="Actualiser" onAction="#handleRefresh" styleClass="btn-primary">
+                <tooltip><Tooltip text="Recalculer tous les indicateurs"/></tooltip>
+            </Button>
+        </HBox>
+
+        <FlowPane hgap="16.0" vgap="16.0">
+            <VBox styleClass="stat-card" spacing="6.0" prefWidth="200.0">
+                <Label text="Chambres" styleClass="stat-label"/>
+                <Label fx:id="lblTotalChambres" text="0" styleClass="stat-value"/>
+                <Label text="total enregistrées" styleClass="stat-hint"/>
+            </VBox>
+            <VBox styleClass="stat-card" spacing="6.0" prefWidth="200.0">
+                <Label text="Disponibles" styleClass="stat-label"/>
+                <Label fx:id="lblChambresDispo" text="0" styleClass="stat-value"/>
+                <Label text="prêtes à réserver" styleClass="stat-hint"/>
+            </VBox>
+            <VBox styleClass="stat-card" spacing="6.0" prefWidth="200.0">
+                <Label text="Réservations" styleClass="stat-label"/>
+                <Label fx:id="lblTotalReservations" text="0" styleClass="stat-value"/>
+                <Label text="toutes périodes" styleClass="stat-hint"/>
+            </VBox>
+            <VBox styleClass="stat-card stat-card-accent" spacing="6.0" prefWidth="240.0">
+                <Label text="Chiffre d'affaires" styleClass="stat-label"/>
+                <Label fx:id="lblRevenu" text="0.00 MAD" styleClass="stat-value"/>
+                <Label text="confirmées + terminées" styleClass="stat-hint"/>
+            </VBox>
+        </FlowPane>
+
+        <VBox styleClass="panel-card" spacing="10.0">
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                <Label text="Taux d'occupation" styleClass="section-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="lblTauxOccupation" text="0 %" styleClass="value-badge"/>
+            </HBox>
+            <ProgressBar fx:id="pbOccupation" progress="0.0" maxWidth="Infinity" prefHeight="18.0">
+                <tooltip><Tooltip text="Proportion de chambres occupées"/></tooltip>
+            </ProgressBar>
+        </VBox>
+
+        <GridPane hgap="16.0" vgap="16.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="50"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints/>
+            </rowConstraints>
+
+            <VBox styleClass="panel-card" spacing="8.0"
+                  GridPane.rowIndex="0" GridPane.columnIndex="0">
+                <Label text="Répartition des chambres par type" styleClass="section-title"/>
+                <PieChart fx:id="chartTypes" legendSide="BOTTOM" labelsVisible="true"
+                          prefHeight="300.0"/>
+            </VBox>
+
+            <VBox styleClass="panel-card" spacing="8.0"
+                  GridPane.rowIndex="0" GridPane.columnIndex="1">
+                <Label text="Réservations par statut" styleClass="section-title"/>
+                <BarChart fx:id="chartStatuts" legendVisible="false" prefHeight="300.0">
+                    <xAxis>
+                        <CategoryAxis label="Statut"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Nombre" lowerBound="0" tickUnit="1" autoRanging="true"/>
+                    </yAxis>
+                </BarChart>
+            </VBox>
+        </GridPane>
+
+        <GridPane hgap="16.0" vgap="16.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="38"/>
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="36"/>
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="26"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints/>
+            </rowConstraints>
+
+            <VBox styleClass="panel-card" spacing="10.0"
+                  GridPane.rowIndex="0" GridPane.columnIndex="0">
+                <Label text="🕑 Activité récente" styleClass="section-title"/>
+                <ListView fx:id="lvActivite" prefHeight="200.0">
+                    <tooltip><Tooltip text="Dernières réservations enregistrées"/></tooltip>
+                </ListView>
+            </VBox>
+
+            <VBox styleClass="panel-card" spacing="10.0"
+                  GridPane.rowIndex="0" GridPane.columnIndex="1">
+                <Label text="🧠 Analyses intelligentes" styleClass="section-title"/>
+                <Label text="Recommandations générées à partir de vos données."
+                       styleClass="stat-hint" wrapText="true"/>
+                <ListView fx:id="lvInsights" prefHeight="160.0">
+                    <tooltip><Tooltip text="Indicateurs et conseils calculés en temps réel"/></tooltip>
+                </ListView>
+            </VBox>
+
+            <VBox styleClass="panel-card" spacing="10.0"
+                  GridPane.rowIndex="0" GridPane.columnIndex="2">
+                <Label text="🎨 Personnalisation" styleClass="section-title"/>
+                <Label text="Couleur d'accent de l'application :" styleClass="stat-hint"/>
+                <ColorPicker fx:id="cpTheme" maxWidth="Infinity">
+                    <tooltip><Tooltip text="Choisissez la couleur principale de l'interface"/></tooltip>
+                </ColorPicker>
+                <HBox spacing="8.0">
+                    <Button text="Appliquer" onAction="#handleAppliquerTheme"
+                            styleClass="btn-primary" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                    <Button text="Réinitialiser" onAction="#handleResetTheme"
+                            styleClass="btn-ghost" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                </HBox>
+                <Region VBox.vgrow="ALWAYS"/>
+                <Label text="L'accent se propage instantanément à toute l'application, y compris la barre latérale."
+                       styleClass="stat-hint" wrapText="true"/>
+            </VBox>
+        </GridPane>
+    </VBox>
+</ScrollPane>

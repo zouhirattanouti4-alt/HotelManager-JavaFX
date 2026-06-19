@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ma.ensao.hotel.controller.ReservationController"
+            styleClass="page">
+
+    <!-- Groupe de boutons radio pour le statut -->
+    <fx:define>
+        <ToggleGroup fx:id="tgStatut"/>
+    </fx:define>
+
+    <!-- ============================ FORMULAIRE (gauche) ============================ -->
+    <left>
+        <VBox styleClass="form-panel" spacing="12.0" prefWidth="400.0">
+            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+
+            <Label text="Fiche réservation" styleClass="form-title"/>
+
+            <Accordion>
+                <panes>
+                    <TitledPane text="Client &amp; chambre" expanded="true">
+                        <GridPane hgap="10.0" vgap="12.0">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="110.0"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints/><RowConstraints/><RowConstraints/><RowConstraints/>
+                            </rowConstraints>
+
+                            <Label text="Client :" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="tfNom" promptText="Nom complet"
+                                       GridPane.rowIndex="0" GridPane.columnIndex="1">
+                                <tooltip><Tooltip text="Nom et prénom du client"/></tooltip>
+                            </TextField>
+
+                            <Label text="Email :" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextField fx:id="tfEmail" promptText="client@email.com"
+                                       GridPane.rowIndex="1" GridPane.columnIndex="1">
+                                <tooltip><Tooltip text="Adresse email (optionnelle, validée si renseignée)"/></tooltip>
+                            </TextField>
+
+                            <Label text="Téléphone :" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <TextField fx:id="tfTel" promptText="06 00 00 00 00"
+                                       GridPane.rowIndex="2" GridPane.columnIndex="1">
+                                <tooltip><Tooltip text="Numéro de téléphone (optionnel)"/></tooltip>
+                            </TextField>
+
+                            <Label text="Chambre :" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="cbChambre" maxWidth="Infinity" promptText="Choisir une chambre"
+                                      GridPane.rowIndex="3" GridPane.columnIndex="1">
+                                <tooltip><Tooltip text="Chambre à réserver (le prix détermine le montant)"/></tooltip>
+                            </ComboBox>
+                        </GridPane>
+                    </TitledPane>
+
+                    <TitledPane text="Séjour" expanded="false">
+                        <GridPane hgap="10.0" vgap="12.0">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="110.0"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints/><RowConstraints/><RowConstraints/>
+                            </rowConstraints>
+
+                            <Label text="Arrivée :" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <DatePicker fx:id="dpArrivee" maxWidth="Infinity"
+                                        GridPane.rowIndex="0" GridPane.columnIndex="1">
+                                <tooltip><Tooltip text="Date d'arrivée (check-in)"/></tooltip>
+                            </DatePicker>
+
+                            <Label text="Départ :" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <DatePicker fx:id="dpDepart" maxWidth="Infinity"
+                                        GridPane.rowIndex="1" GridPane.columnIndex="1">
+                                <tooltip><Tooltip text="Date de départ (check-out)"/></tooltip>
+                            </DatePicker>
+
+                            <Label text="Personnes :" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <Spinner fx:id="spPersonnes" maxWidth="Infinity"
+                                     GridPane.rowIndex="2" GridPane.columnIndex="1">
+                                <tooltip><Tooltip text="Nombre d'occupants (limité par la capacité)"/></tooltip>
+                            </Spinner>
+                        </GridPane>
+                    </TitledPane>
+
+                    <TitledPane text="Statut &amp; paiement" expanded="false">
+                        <VBox spacing="10.0">
+                            <Label text="Statut de la réservation :"/>
+                            <FlowPane hgap="12.0" vgap="6.0">
+                                <RadioButton fx:id="rbAttente" text="En attente"
+                                             toggleGroup="$tgStatut" userData="EN_ATTENTE"/>
+                                <RadioButton fx:id="rbConfirmee" text="Confirmée"
+                                             toggleGroup="$tgStatut" userData="CONFIRMEE"/>
+                                <RadioButton fx:id="rbAnnulee" text="Annulée"
+                                             toggleGroup="$tgStatut" userData="ANNULEE"/>
+                                <RadioButton fx:id="rbTerminee" text="Terminée"
+                                             toggleGroup="$tgStatut" userData="TERMINEE"/>
+                            </FlowPane>
+
+                            <CheckBox fx:id="chkPaye" text="Réservation payée">
+                                <tooltip><Tooltip text="Cochez si le règlement a été effectué"/></tooltip>
+                            </CheckBox>
+
+                            <HBox spacing="8.0" alignment="CENTER_LEFT">
+                                <Label text="Montant total :"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="lblMontant" text="0.00 MAD" styleClass="value-badge"/>
+                            </HBox>
+
+                            <Label text="Remarques :"/>
+                            <TextArea fx:id="taRemarques" prefRowCount="3" wrapText="true"
+                                      promptText="Demandes particulières, notes internes...">
+                                <tooltip><Tooltip text="Texte libre lié à la réservation"/></tooltip>
+                            </TextArea>
+                        </VBox>
+                    </TitledPane>
+                </panes>
+            </Accordion>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <HBox spacing="8.0">
+                <Button text="Ajouter" onAction="#handleAjouter" styleClass="btn-primary"
+                        maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnModifier" text="Modifier" onAction="#handleModifier"
+                        styleClass="btn-warning" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            </HBox>
+            <HBox spacing="8.0">
+                <Button fx:id="btnSupprimer" text="Supprimer" onAction="#handleSupprimer"
+                        styleClass="btn-danger" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                <Button text="Vider" onAction="#handleVider" styleClass="btn-ghost"
+                        maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            </HBox>
+        </VBox>
+    </left>
+
+    <!-- ============================ TABLEAU (centre) ============================ -->
+    <center>
+        <VBox styleClass="table-panel" spacing="12.0">
+            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+
+            <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="toolbar">
+                <Label text="🔎"/>
+                <TextField fx:id="tfRecherche" promptText="Rechercher (client, chambre, email...)"
+                           HBox.hgrow="ALWAYS">
+                    <tooltip><Tooltip text="Filtrage instantané du tableau"/></tooltip>
+                </TextField>
+                <Label text="Statut :"/>
+                <ComboBox fx:id="cbFiltreStatut" promptText="Tous">
+                    <tooltip><Tooltip text="Filtrer par statut de réservation"/></tooltip>
+                </ComboBox>
+                <Button text="Réinitialiser" onAction="#handleResetFiltre" styleClass="btn-ghost"/>
+                <Button text="🧾 Facture" onAction="#handleFacture" styleClass="btn-secondary">
+                    <tooltip><Tooltip text="Générer la facture de la réservation sélectionnée"/></tooltip>
+                </Button>
+                <Button text="Exporter CSV" onAction="#handleExport" styleClass="btn-secondary">
+                    <tooltip><Tooltip text="Exporter la liste vers un fichier CSV"/></tooltip>
+                </Button>
+            </HBox>
+
+            <TableView fx:id="tableReservations" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="45"/>
+                    <TableColumn fx:id="colClient" text="Client" prefWidth="140"/>
+                    <TableColumn fx:id="colChambre" text="Chambre" prefWidth="90"/>
+                    <TableColumn fx:id="colArrivee" text="Arrivée" prefWidth="105"/>
+                    <TableColumn fx:id="colDepart" text="Départ" prefWidth="105"/>
+                    <TableColumn fx:id="colNuits" text="Nuits" prefWidth="65"/>
+                    <TableColumn fx:id="colStatut" text="Statut" prefWidth="110"/>
+                    <TableColumn fx:id="colMontant" text="Montant" prefWidth="115"/>
+                    <TableColumn fx:id="colPaye" text="Paiement" prefWidth="95"/>
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </TableView>
+
+            <Label fx:id="lblTotal" text="0 réservation(s) affichée(s)" styleClass="counter"/>
+        </VBox>
+    </center>
+</BorderPane>

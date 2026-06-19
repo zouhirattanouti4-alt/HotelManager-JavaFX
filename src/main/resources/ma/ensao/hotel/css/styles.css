@@ -1,0 +1,292 @@
+/* =====================================================================
+   HotelManager — Feuille de style JavaFX  « Maison Azur »
+   ---------------------------------------------------------------------
+   • Thème premium piloté par une couleur d'accent dynamique (-app-accent)
+   • Double thème CLAIR / SOMBRE
+   ===================================================================== */
+
+/* ============================ PALETTE CLAIRE ======================== */
+.root {
+    -app-accent:      #1f6feb;
+    -app-accent-dark: derive(-app-accent, -28%);
+    -app-accent-soft: derive(-app-accent, 82%);
+
+    -app-bg:        #eaeef5;
+    -app-surface:   #ffffff;
+    -app-surface-2: #f4f7fc;
+    -app-border:    #e2e8f0;
+    -app-text:      #0f172a;
+    -app-text-soft: #64748b;
+
+    -app-success: #15803d;
+    -app-warning: #b45309;
+    -app-danger:  #dc2626;
+
+    -fx-font-family: "Segoe UI", "Inter", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13.5px;
+    -fx-background-color: -app-bg;
+}
+
+/* ============================ PALETTE SOMBRE ======================== */
+.dark {
+    -app-accent-soft: derive(-app-accent, -45%);
+
+    -app-bg:        #0b1220;
+    -app-surface:   #141d30;
+    -app-surface-2: #0f1828;
+    -app-border:    #26334d;
+    -app-text:      #e6eefb;
+    -app-text-soft: #93a4c0;
+
+    -fx-background-color: -app-bg;
+}
+
+/* ============================ COQUE DE L'APPLI ===================== */
+.app-root { -fx-background-color: -app-bg; }
+.page { -fx-background-color: -app-bg; }
+
+/* ---- En-tête ------------------------------------------------------ */
+.app-header {
+    -fx-background-color: -app-surface;
+    -fx-border-color: -app-border;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 12 22 12 22;
+}
+.app-logo { -fx-font-size: 26px; }
+.app-title {
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -app-text;
+}
+.app-subtitle {
+    -fx-font-size: 11.5px;
+    -fx-text-fill: -app-text-soft;
+}
+.header-greeting {
+    -fx-font-size: 13px;
+    -fx-text-fill: -app-text-soft;
+}
+.header-clock {
+    -fx-font-family: "Consolas", "Menlo", monospace;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -app-accent;
+    -fx-padding: 4 12 4 12;
+    -fx-background-color: -app-accent-soft;
+    -fx-background-radius: 10;
+}
+.theme-toggle {
+    -fx-background-color: -app-surface-2;
+    -fx-border-color: -app-border;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-font-size: 16px;
+    -fx-padding: 6 12 6 12;
+    -fx-cursor: hand;
+}
+.theme-toggle:hover, .theme-toggle:selected { -fx-background-color: -app-accent-soft; }
+
+/* ---- Menu & ContextMenu ------------------------------------------ */
+.menu-bar {
+    -fx-background-color: -app-accent-dark;
+    -fx-padding: 1 8 1 8;
+}
+.menu-bar .label { -fx-text-fill: white; -fx-font-weight: bold; }
+.menu-bar .menu:hover, .menu-bar .menu:showing {
+    -fx-background-color: rgba(255,255,255,0.18);
+    -fx-background-radius: 6;
+}
+
+.context-menu {
+    -fx-background-color: -app-surface;
+    -fx-border-color: -app-border;
+    -fx-border-width: 1;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 4 2 4 2;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 0, 5);
+}
+.context-menu .menu-item {
+    -fx-background-color: transparent;
+    -fx-padding: 6 15 6 15;
+}
+.context-menu .menu-item .label {
+    -fx-text-fill: -app-text;
+    -fx-font-size: 13.5px;
+}
+.context-menu .menu-item:focused {
+    -fx-background-color: -app-accent;
+    -fx-background-radius: 4;
+}
+.context-menu .menu-item:focused .label { -fx-text-fill: white; }
+.context-menu .separator:horizontal .line {
+    -fx-border-color: -app-border transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 2 0 2 0;
+    -fx-background-color: transparent;
+}
+
+/* ============================ BARRE LATÉRALE ====================== */
+.sidebar {
+    -fx-background-color: linear-gradient(to bottom, derive(-app-accent, -32%), #0a1020);
+    -fx-padding: 22 14 18 14;
+    -fx-min-width: 232;
+    -fx-pref-width: 232;
+}
+.sidebar-brand { -fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold; }
+.sidebar-brand-sub { -fx-text-fill: rgba(255,255,255,0.65); -fx-font-size: 11px; }
+.sidebar-section { -fx-text-fill: rgba(255,255,255,0.45); -fx-font-size: 11px; -fx-font-weight: bold; -fx-padding: 12 0 2 8; }
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(255,255,255,0.80);
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+    -fx-graphic-text-gap: 13;
+    -fx-padding: 12 14 12 16;
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
+    -fx-max-width: Infinity;
+}
+.nav-btn:hover { -fx-background-color: rgba(255,255,255,0.10); -fx-text-fill: white; }
+.nav-active {
+    -fx-background-color: rgba(255,255,255,0.18);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 8, 0, 0, 2);
+}
+.sidebar-footer { -fx-text-fill: rgba(255,255,255,0.55); -fx-font-size: 11px; }
+.sidebar-badge { -fx-background-color: rgba(255,255,255,0.14); -fx-background-radius: 10; -fx-padding: 10 12 10 12; }
+.sidebar-badge .label { -fx-text-fill: white; }
+
+/* ============================ ZONE DE CONTENU ===================== */
+.content-area { -fx-background-color: -app-bg; }
+
+/* ============================ PANNEAUX ============================ */
+.form-panel { -fx-background-color: -app-surface; -fx-border-color: -app-border; -fx-border-width: 0 1 0 0; }
+.table-panel { -fx-background-color: -app-bg; }
+.form-title { -fx-font-size: 19px; -fx-font-weight: bold; -fx-text-fill: -app-text; -fx-padding: 2 0 6 0; }
+
+/* ============================ CHAMPS DE SAISIE =================== */
+.text-field, .text-area, .combo-box, .date-picker, .spinner, .color-picker {
+    -fx-background-radius: 9;
+    -fx-border-radius: 9;
+    -fx-border-color: -app-border;
+    -fx-border-width: 1;
+    -fx-background-color: -app-surface;
+}
+.text-field, .combo-box .list-cell, .date-picker .text-field { -fx-text-fill: -app-text; }
+.text-area { -fx-text-fill: -app-text; }
+.text-area .content { -fx-background-radius: 9; -fx-background-color: -app-surface; }
+
+/* Effet Glow / Focus */
+.text-field:focused, .text-area:focused, .combo-box:focused, .date-picker:focused, .spinner:focused {
+    -fx-border-color: -app-accent;
+    -fx-effect: dropshadow(gaussian, -app-accent, 12, 0.4, 0, 0);
+    -fx-background-color: -app-surface;
+}
+
+.combo-box .arrow, .spinner .increment-arrow, .spinner .decrement-arrow { -fx-background-color: -app-text-soft; }
+.combo-box-popup .list-view { -fx-background-color: -app-surface; -fx-border-color: -app-border; }
+.combo-box-popup .list-cell { -fx-text-fill: -app-text; -fx-background-color: -app-surface; }
+.combo-box-popup .list-cell:hover { -fx-background-color: -app-accent-soft; }
+
+/* ============================ TITLEDPANE / ACCORDION ============ */
+.titled-pane > .title {
+    -fx-background-color: -app-surface-2;
+    -fx-background-radius: 9;
+    -fx-border-radius: 9;
+    -fx-font-weight: bold;
+    -fx-text-fill: -app-text;
+    -fx-padding: 9 10 9 10;
+}
+.titled-pane:expanded > .title { -fx-text-fill: -app-accent; }
+.titled-pane > .title .text { -fx-fill: -app-text; }
+.titled-pane > .content { -fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 12 2 6 2; }
+
+/* ============================ BOUTONS ============================ */
+.button { -fx-background-radius: 9; -fx-padding: 9 17 9 17; -fx-font-weight: bold; -fx-cursor: hand; }
+.btn-primary { -fx-background-color: -app-accent; -fx-text-fill: white; }
+.btn-primary:hover { -fx-background-color: derive(-app-accent, -10%); -fx-effect: dropshadow(gaussian, derive(-app-accent, 30%), 10, 0.1, 0, 3); }
+.btn-secondary { -fx-background-color: -app-accent-soft; -fx-text-fill: -app-accent-dark; }
+.btn-secondary:hover { -fx-background-color: derive(-app-accent-soft, -8%); }
+.btn-warning { -fx-background-color: #f59e0b; -fx-text-fill: #3b2600; }
+.btn-warning:hover { -fx-background-color: derive(#f59e0b, -10%); }
+.btn-danger { -fx-background-color: -app-danger; -fx-text-fill: white; }
+.btn-danger:hover { -fx-background-color: derive(#dc2626, -10%); }
+.btn-ghost { -fx-background-color: transparent; -fx-text-fill: -app-text-soft; -fx-border-color: -app-border; -fx-border-width: 1; -fx-border-radius: 9; }
+.btn-ghost:hover { -fx-background-color: -app-surface-2; -fx-text-fill: -app-text; }
+.button:disabled { -fx-opacity: 0.45; }
+
+/* ============================ BARRE D'OUTILS & BADGES =========== */
+.toolbar { -fx-background-color: -app-surface; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: -app-border; -fx-border-width: 1; -fx-padding: 9 12 9 12; }
+.value-badge { -fx-background-color: -app-accent-soft; -fx-text-fill: -app-accent-dark; -fx-font-weight: bold; -fx-padding: 4 12 4 12; -fx-background-radius: 20; }
+.counter { -fx-text-fill: -app-text-soft; -fx-font-style: italic; }
+
+/* ============================ TABLEAUX ========================= */
+.table-view { -fx-background-color: -app-surface; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: -app-border; -fx-border-width: 1; -fx-table-cell-border-color: transparent; }
+.table-view .column-header-background { -fx-background-color: -app-surface-2; -fx-background-radius: 12 12 0 0; }
+.table-view .column-header, .table-view .filler { -fx-background-color: transparent; }
+.table-view .column-header .label { -fx-text-fill: -app-text; -fx-font-weight: bold; -fx-alignment: CENTER_LEFT; }
+.table-row-cell { -fx-background-color: -app-surface; -fx-border-color: transparent transparent -app-border transparent; -fx-table-cell-border-color: transparent; }
+.table-row-cell .text { -fx-fill: -app-text; }
+.table-row-cell:odd { -fx-background-color: -app-surface-2; }
+.table-row-cell:selected { -fx-background-color: -app-accent-soft; }
+.table-row-cell:selected .text { -fx-fill: -app-text; }
+.table-view .placeholder .label { -fx-text-fill: -app-text-soft; }
+
+/* ============================ TABLEAU DE BORD ================= */
+.dash-title { -fx-font-size: 25px; -fx-font-weight: bold; -fx-text-fill: -app-text; }
+.dash-subtitle { -fx-font-size: 13.5px; -fx-text-fill: -app-text-soft; }
+.section-title { -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: -app-text; }
+
+.stat-card { -fx-background-color: -app-surface; -fx-background-radius: 16; -fx-border-radius: 16; -fx-border-color: -app-border; -fx-border-width: 1; -fx-padding: 16 18 16 18; -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.08), 12, 0, 0, 4); }
+.stat-card:hover { -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.16), 16, 0.1, 0, 6); }
+.stat-card-accent { -fx-background-color: linear-gradient(to bottom right, -app-accent, derive(-app-accent, -22%)); -fx-border-color: transparent; }
+.stat-card-accent .stat-label, .stat-card-accent .stat-value, .stat-card-accent .stat-hint { -fx-text-fill: white; }
+.stat-label { -fx-font-size: 12.5px; -fx-text-fill: -app-text-soft; -fx-font-weight: bold; }
+.stat-value { -fx-font-size: 29px; -fx-font-weight: bold; -fx-text-fill: -app-accent; }
+.stat-hint { -fx-font-size: 11.5px; -fx-text-fill: -app-text-soft; }
+.panel-card { -fx-background-color: -app-surface; -fx-background-radius: 16; -fx-border-radius: 16; -fx-border-color: -app-border; -fx-border-width: 1; -fx-padding: 16 18 16 18; -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.06), 12, 0, 0, 4); }
+
+/* Progress / List / Scroll */
+.progress-bar > .bar { -fx-background-color: linear-gradient(to right, -app-accent, derive(-app-accent, 25%)); -fx-background-radius: 10; -fx-padding: 8; }
+.progress-bar > .track { -fx-background-color: -app-surface-2; -fx-background-radius: 10; }
+.progress-indicator { -fx-progress-color: -app-accent; }
+.list-view { -fx-background-color: -app-surface; -fx-border-color: -app-border; -fx-border-radius: 12; -fx-background-radius: 12; }
+.list-cell { -fx-background-color: transparent; -fx-text-fill: -app-text; -fx-padding: 8 12 8 12; }
+.list-cell:odd { -fx-background-color: -app-surface-2; }
+.list-cell:selected { -fx-background-color: -app-accent-soft; -fx-text-fill: -app-text; }
+.scroll-pane, .scroll-pane > .viewport { -fx-background-color: transparent; }
+
+/* Scrollbar Sleek (invisible & translucide) */
+.scroll-bar:vertical, .scroll-bar:horizontal { -fx-background-color: transparent; }
+.scroll-bar:vertical .track, .scroll-bar:horizontal .track { -fx-background-color: transparent; -fx-border-color: transparent; }
+.scroll-bar:vertical .thumb, .scroll-bar:horizontal .thumb { -fx-background-color: rgba(150, 150, 150, 0.2); -fx-background-radius: 10em; }
+.scroll-bar:vertical .thumb:hover, .scroll-bar:horizontal .thumb:hover { -fx-background-color: -app-accent-soft; }
+
+/* ============================ GRAPHIQUES EPURES ======================= */
+.chart { -fx-padding: 4; }
+.chart-plot-background { -fx-background-color: transparent; }
+.chart-title { -fx-text-fill: -app-text; -fx-font-weight: bold; }
+.chart-legend { -fx-background-color: transparent; }
+.chart-legend-item { -fx-text-fill: -app-text-soft; }
+.axis { -fx-tick-label-fill: -app-text-soft; }
+.axis-label { -fx-text-fill: -app-text-soft; }
+.chart-vertical-grid-lines, .chart-horizontal-grid-lines { -fx-stroke: transparent; } /* Lignes invisibles */
+.chart-alternative-row-fill, .chart-alternative-column-fill { -fx-fill: transparent; }
+.default-color0.chart-bar { -fx-bar-fill: -app-accent; -fx-background-radius: 6 6 0 0; }
+
+/* Dialogues */
+.dialog-pane { -fx-background-color: -app-surface; }
+.dialog-pane .label { -fx-text-fill: -app-text; }
+.dialog-pane .header-panel { -fx-background-color: -app-surface-2; }
+.dialog-pane .header-panel .label { -fx-text-fill: -app-text; -fx-font-weight: bold; }
+
+/* ============================ MODE SOMBRE ============================ */
+.dark .value-badge   { -fx-text-fill: derive(-app-accent, 65%); }
+.dark .header-clock  { -fx-text-fill: derive(-app-accent, 55%); }
+.dark .btn-secondary { -fx-text-fill: derive(-app-accent, 70%); }
+.dark .titled-pane:expanded > .title { -fx-text-fill: derive(-app-accent, 55%); }
+.dark .stat-value    { -fx-text-fill: derive(-app-accent, 55%); }
+.dark .text-area .content { -fx-background-color: -app-surface; }

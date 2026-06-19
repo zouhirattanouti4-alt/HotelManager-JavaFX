@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ma.ensao.hotel.controller.ChambreController"
+            styleClass="page">
+
+    <!-- ============================ FORMULAIRE (gauche) ============================ -->
+    <left>
+        <VBox styleClass="form-panel" spacing="12.0" prefWidth="380.0">
+            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+
+            <Label text="Fiche chambre" styleClass="form-title"/>
+
+            <Accordion>
+                <panes>
+                    <TitledPane text="Informations générales" expanded="true">
+                        <GridPane hgap="10.0" vgap="12.0">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="110.0"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints/><RowConstraints/><RowConstraints/><RowConstraints/>
+                            </rowConstraints>
+
+                            <Label text="Numéro :" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="tfNumero" promptText="Ex : 101"
+                                       GridPane.rowIndex="0" GridPane.columnIndex="1">
+                                <tooltip><Tooltip text="Numéro unique identifiant la chambre"/></tooltip>
+                            </TextField>
+
+                            <Label text="Type :" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="cbType" maxWidth="Infinity"
+                                      GridPane.rowIndex="1" GridPane.columnIndex="1">
+                                <tooltip><Tooltip text="Catégorie de la chambre"/></tooltip>
+                            </ComboBox>
+
+                            <Label text="Capacité :" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <Spinner fx:id="spCapacite" maxWidth="Infinity"
+                                     GridPane.rowIndex="2" GridPane.columnIndex="1">
+                                <tooltip><Tooltip text="Nombre maximal de personnes"/></tooltip>
+                            </Spinner>
+
+                            <Label text="Étage :" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                            <Spinner fx:id="spEtage" maxWidth="Infinity"
+                                     GridPane.rowIndex="3" GridPane.columnIndex="1">
+                                <tooltip><Tooltip text="Étage où se situe la chambre"/></tooltip>
+                            </Spinner>
+                        </GridPane>
+                    </TitledPane>
+
+                    <TitledPane text="Tarif &amp; disponibilité" expanded="false">
+                        <VBox spacing="10.0">
+                            <HBox spacing="8.0" alignment="CENTER_LEFT">
+                                <Label text="Prix / nuit :"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="lblPrixValue" text="0 MAD" styleClass="value-badge"/>
+                            </HBox>
+                            <Slider fx:id="sliderPrix" min="0" max="5000" value="0"
+                                    majorTickUnit="1000" minorTickCount="4"
+                                    showTickMarks="true" showTickLabels="true" blockIncrement="50">
+                                <tooltip><Tooltip text="Faites glisser pour définir le prix par nuit"/></tooltip>
+                            </Slider>
+
+                            <CheckBox fx:id="chkDisponible" text="Chambre disponible" selected="true">
+                                <tooltip><Tooltip text="Décochez si la chambre est hors service"/></tooltip>
+                            </CheckBox>
+
+                            <Label text="Description :"/>
+                            <TextArea fx:id="taDescription" prefRowCount="4" wrapText="true"
+                                      promptText="Équipements, vue, remarques...">
+                                <tooltip><Tooltip text="Texte libre décrivant la chambre"/></tooltip>
+                            </TextArea>
+                        </VBox>
+                    </TitledPane>
+                </panes>
+            </Accordion>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <HBox spacing="8.0">
+                <Button text="Ajouter" onAction="#handleAjouter" styleClass="btn-primary"
+                        maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnModifier" text="Modifier" onAction="#handleModifier"
+                        styleClass="btn-warning" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            </HBox>
+            <HBox spacing="8.0">
+                <Button fx:id="btnSupprimer" text="Supprimer" onAction="#handleSupprimer"
+                        styleClass="btn-danger" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                <Button text="Vider" onAction="#handleVider" styleClass="btn-ghost"
+                        maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            </HBox>
+        </VBox>
+    </left>
+
+    <!-- ============================ TABLEAU (centre) ============================ -->
+    <center>
+        <VBox styleClass="table-panel" spacing="12.0">
+            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+
+            <!-- Barre de recherche / filtre -->
+            <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="toolbar">
+                <Label text="🔎"/>
+                <TextField fx:id="tfRecherche" promptText="Rechercher (numéro, description...)"
+                           HBox.hgrow="ALWAYS">
+                    <tooltip><Tooltip text="Filtrage instantané du tableau"/></tooltip>
+                </TextField>
+                <Label text="Type :"/>
+                <ComboBox fx:id="cbFiltreType" promptText="Tous">
+                    <tooltip><Tooltip text="Filtrer par type de chambre"/></tooltip>
+                </ComboBox>
+                <Button text="Réinitialiser" onAction="#handleResetFiltre" styleClass="btn-ghost"/>
+                <Button text="Exporter CSV" onAction="#handleExport" styleClass="btn-secondary">
+                    <tooltip><Tooltip text="Exporter la liste vers un fichier CSV"/></tooltip>
+                </Button>
+            </HBox>
+
+            <TableView fx:id="tableChambres" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="45"/>
+                    <TableColumn fx:id="colNumero" text="Numéro" prefWidth="90"/>
+                    <TableColumn fx:id="colType" text="Type" prefWidth="100"/>
+                    <TableColumn fx:id="colPrix" text="Prix / nuit" prefWidth="120"/>
+                    <TableColumn fx:id="colCapacite" text="Capacité" prefWidth="90"/>
+                    <TableColumn fx:id="colEtage" text="Étage" prefWidth="70"/>
+                    <TableColumn fx:id="colEtat" text="État" prefWidth="110"/>
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </TableView>
+
+            <Label fx:id="lblTotal" text="0 chambre(s) affichée(s)" styleClass="counter"/>
+        </VBox>
+    </center>
+</BorderPane>

@@ -1,0 +1,17 @@
+# Fichiers compilés
+target/
+out/
+bin/
+*.class
+
+# Fichiers des IDE (IntelliJ, Eclipse, VS Code)
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
